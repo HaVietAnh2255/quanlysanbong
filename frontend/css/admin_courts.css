@@ -1,0 +1,137 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; }
+.container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+
+/* Navbar Admin */
+.navbar-admin { background: #111111; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 30px; }
+.navbar-admin .brand { font-weight: bold; font-size: 20px; color: #ff9800; }
+.navbar-admin .nav-links { display: flex; gap: 25px; align-items: center; }
+.navbar-admin .nav-links a { color: white; text-decoration: none; }
+.navbar-admin .nav-links a.active { font-weight: bold; border-bottom: 2px solid #ff9800; padding-bottom: 3px; }
+.navbar-admin .nav-links a.view-client { color: #17b978; font-weight: bold; }
+.bell-box { position: relative; display: flex; align-items: center; gap: 5px; cursor: pointer; background: #222; padding: 5px 10px; border-radius: 4px; }
+.badge { background: #ff5722; color: white; padding: 2px 6px; border-radius: 10px; font-size: 12px; font-weight: bold; display: none; }
+
+h2 { color: #1e3d59; margin-bottom: 5px; }
+.desc { color: #666; margin-bottom: 15px; }
+
+/* Grid Sân */
+.court-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; margin-bottom: 40px; }
+.court-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: relative; border: 1px solid #eee; display: flex; flex-direction: column; }
+.court-img { width: 100%; height: 180px; object-fit: cover; background: #ddd; }
+.court-info { padding: 15px; flex: 1; }
+.court-name { font-size: 18px; font-weight: bold; color: #1e3d59; margin-bottom: 5px; }
+.court-address { font-size: 13px; color: #666; margin-bottom: 10px; }
+.court-status { display: inline-block; padding: 3px 8px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+.status-active { background: #d4edda; color: #155724; }
+.status-maintenance { background: #f8d7da; color: #721c24; }
+.card-actions { position: absolute; top: 10px; right: 10px; display: flex; gap: 5px; }
+.btn-action { border: none; padding: 5px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; color: white; }
+.btn-edit { background: #ff9800; }
+.btn-delete { background: #dc3545; }
+
+/* Nút Thêm Sân */
+.add-btn-card { border: 2px dashed #ff9800; background: #fff8f0; justify-content: center; align-items: center; min-height: 320px; cursor: pointer; transition: 0.2s; }
+.add-btn-card:hover { background: #ffeedb; transform: scale(1.02); }
+.add-icon { font-size: 50px; color: #ff9800; }
+.add-text { font-weight: bold; color: #ff9800; margin-top: 10px; }
+
+/* Cấu hình hệ thống */
+.config-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; margin-top: 40px; }
+.config-box h3 { color: #1e3d59; border-left: 5px solid #ff9800; padding-left: 10px; margin-bottom: 15px; }
+.config-box p { color: #666; font-size: 14px; margin-bottom: 20px; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
+.form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+.btn-config-submit { background: #17b978; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+.btn-config-submit:hover { background: #118f5c; }
+
+/* Modal */
+.modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+.modal-content { background: white; padding: 25px; border-radius: 12px; width: 100%; max-width: 500px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); position: relative; max-height: 90vh; overflow-y: auto; }
+.close { position: absolute; right: 20px; top: 15px; font-size: 24px; cursor: pointer; color: #aaa; }
+#modal-title { margin-bottom: 15px; color: #1e3d59; border-bottom: 2px solid #ff9800; padding-bottom: 5px; }
+.highlight-label { color: #ff9800; }
+.time-price-row { display: flex; gap: 10px; margin-bottom: 5px; align-items: center; }
+.btn-add-time { background: #1e3d59; color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-top: 5px; }
+.btn-submit-modal { width: 100%; background: #ff9800; color: black; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+/* Hiệu ứng Rê chuột (Hover) cho Menu Trang Admin */
+.navbar-admin .nav-links a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.25s ease-in-out;
+}
+
+/* Khi trỏ chuột vào nút Admin chưa bấm */
+.navbar-admin .nav-links a:hover {
+    background-color: #333;                   /* Nền tối nổi bật */
+    color: #ff9800 !important;               /* Chữ sáng màu cam */
+    transform: translateY(-2px);             /* Nhô nhẹ lên */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Nút Admin đang Active */
+.navbar-admin .nav-links a.active {
+    background: #ff9800;
+    color: #000 !important;
+    font-weight: bold;
+}
+/* =========================================================
+   CỐ ĐỊNH KHUNG NAVBAR ADMIN ĐỒNG BỘ 100% TOÀN HỆ THỐNG
+========================================================= */
+.navbar-admin {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background-color: #1e3d59 !important;
+    padding: 0 20px !important;
+    height: 60px !important; /* Khóa chết chiều cao thanh Menu */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    box-sizing: border-box !important;
+}
+
+.navbar-admin .brand {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    white-space: nowrap !important;
+}
+
+.navbar-admin .nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important; /* Khóa khoảng cách giữa các nút */
+}
+
+.navbar-admin .nav-links a {
+    color: #cfd8dc !important;
+    text-decoration: none !important;
+    font-size: 14px !important; /* Cố định cỡ chữ tất cả các nút */
+    font-weight: 600 !important;
+    padding: 8px 14px !important; /* Cố định kích thước đệm nút */
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* Nút Đang Chọn (Active) */
+.navbar-admin .nav-links a.active {
+    background-color: #ff9800 !important;
+    color: #ffffff !important;
+}
+
+/* Nút Xem Trang Khách */
+.navbar-admin .nav-links a.view-client {
+    background-color: #17b978 !important;
+    color: #ffffff !important;
+}
+
+/* Khhu vực Thông báo & Tài khoản */
+#vung-tai-khoan-admin {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+}

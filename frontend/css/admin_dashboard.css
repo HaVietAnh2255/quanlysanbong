@@ -1,0 +1,131 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; }
+.container { max-width: 1200px; margin: 30px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+/* Navbar Admin */
+.navbar-admin { background: #111111; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 30px; }
+.navbar-admin .brand { font-weight: bold; font-size: 20px; color: #ff9800; }
+.navbar-admin .nav-links { display: flex; gap: 25px; align-items: center; }
+.navbar-admin .nav-links a { color: white; text-decoration: none; }
+.navbar-admin .nav-links a.active { font-weight: bold; border-bottom: 2px solid #ff9800; padding-bottom: 3px; }
+.navbar-admin .nav-links a.view-client { color: #17b978; font-weight: bold; }
+.bell-box { position: relative; display: flex; align-items: center; gap: 5px; cursor: pointer; background: #222; padding: 5px 10px; border-radius: 4px; }
+.badge { background: #ff5722; color: white; padding: 2px 6px; border-radius: 10px; font-size: 12px; font-weight: bold; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 40px; }
+th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+th { background-color: #f8f9fa; color: #333; }
+
+.section-title { font-size: 20px; font-weight: bold; color: #1e3d59; border-left: 5px solid #17b978; padding-left: 10px; margin-top: 20px; }
+.section-title.tournament { border-left-color: #ff9800; }
+.section-title.tournament-honor { border-left-color: #9c27b0; margin-top: 5px; }
+
+.status { padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; display: inline-block; }
+.st-trang { background: #f1f3f5; color: #495057; border: 1px solid #ced4da; }
+.st-vang { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; animation: nhap-nhay 1.5s infinite; }
+.st-xanh { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.st-huy { background: #f8d7da; color: #721c24; }
+.st-cam { background: #ffe8d6; color: #a65d03; border: 1px solid #f8a5c2; animation: nhap-nhay 1.2s infinite; }
+
+@keyframes nhap-nhay { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+
+.btn { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 5px; color: white; }
+.btn-chot { background: #17b978; }
+.btn-giai { background: #ff9800; color: black; }
+.btn-huy { background: #ff4d4d; }
+.btn-hoan { background: #e67e22; }
+
+.vinh-danh-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 15px; border: 1px solid #e0e0e0; }
+.vinh-danh-box p { color: #555; margin-bottom: 15px; font-weight: bold; }
+.btn-vinh-danh { background: #9c27b0; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; font-size: 15px; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
+
+/* Modal */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 450px; width: 100%; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+.modal-content h3 { color: #1e3d59; margin-bottom: 10px; }
+.warning-text { color: #e67e22; font-weight: bold; font-size: 14px; margin-bottom: 15px; }
+#qr-hoan-img { width: 230px; border: 1px solid #ddd; border-radius: 8px; padding: 10px; }
+.bank-detail { text-align: left; margin: 15px 0; background: #f8f9fa; padding: 12px; border-radius: 6px; font-size: 14px; }
+.money-refund { margin-top: 5px; font-size: 16px; color: red; }
+.btn-confirm-refund { background: #17b978; color: white; padding: 12px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin-bottom: 10px; }
+.btn-close-refund { background: #f1f3f5; color: #333; padding: 10px; border: none; border-radius: 6px; cursor: pointer; width: 100%; }
+/* Hiệu ứng Rê chuột (Hover) cho Menu Trang Admin */
+.navbar-admin .nav-links a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.25s ease-in-out;
+}
+
+/* Khi trỏ chuột vào nút Admin chưa bấm */
+.navbar-admin .nav-links a:hover {
+    background-color: #333;                   /* Nền tối nổi bật */
+    color: #ff9800 !important;               /* Chữ sáng màu cam */
+    transform: translateY(-2px);             /* Nhô nhẹ lên */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Nút Admin đang Active */
+.navbar-admin .nav-links a.active {
+    background: #ff9800;
+    color: #000 !important;
+    font-weight: bold;
+}
+/* =========================================================
+   CỐ ĐỊNH KHUNG NAVBAR ADMIN ĐỒNG BỘ 100% TOÀN HỆ THỐNG
+========================================================= */
+.navbar-admin {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background-color: #1e3d59 !important;
+    padding: 0 20px !important;
+    height: 60px !important; /* Khóa chết chiều cao thanh Menu */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    box-sizing: border-box !important;
+}
+
+.navbar-admin .brand {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    white-space: nowrap !important;
+}
+
+.navbar-admin .nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important; /* Khóa khoảng cách giữa các nút */
+}
+
+.navbar-admin .nav-links a {
+    color: #cfd8dc !important;
+    text-decoration: none !important;
+    font-size: 14px !important; /* Cố định cỡ chữ tất cả các nút */
+    font-weight: 600 !important;
+    padding: 8px 14px !important; /* Cố định kích thước đệm nút */
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* Nút Đang Chọn (Active) */
+.navbar-admin .nav-links a.active {
+    background-color: #ff9800 !important;
+    color: #ffffff !important;
+}
+
+/* Nút Xem Trang Khách */
+.navbar-admin .nav-links a.view-client {
+    background-color: #17b978 !important;
+    color: #ffffff !important;
+}
+
+/* Khhu vực Thông báo & Tài khoản */
+#vung-tai-khoan-admin {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+}

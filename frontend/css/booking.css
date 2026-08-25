@@ -1,0 +1,73 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; }
+.container { max-width: 800px; margin: 30px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+/* Navbar Client */
+.navbar-custom { background: #1e3d59; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 30px; }
+.navbar-custom .brand { font-weight: bold; font-size: 20px; }
+.navbar-custom .nav-links { display: flex; gap: 20px; align-items: center; }
+.navbar-custom .nav-links a { color: white; text-decoration: none; }
+.navbar-custom .nav-links a.active { font-weight: bold; border-bottom: 2px solid #ff9800; padding-bottom: 3px; }
+.btn-login-nav { background: #17b978; color: white; padding: 8px 15px; border-radius: 4px; text-decoration: none; font-weight: bold; }
+
+h2 { color: #1e3d59; margin-bottom: 20px; border-bottom: 2px solid #17b978; padding-bottom: 10px; }
+.form-row-three { display: flex; gap: 15px; margin-bottom: 15px; }
+.form-row-three .form-group { flex: 1; }
+.form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #333; }
+.form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; }
+
+.section-label { font-weight: bold; font-size: 18px; color: #1e3d59; }
+.time-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 10px; margin-top: 10px; margin-bottom: 20px; }
+.slot { padding: 10px 5px; text-align: center; border-radius: 6px; border: 1px solid #ccc; font-weight: bold; cursor: pointer; transition: 0.2s; background: white; color: #333; font-size: 14px; }
+
+.slot.booked { background: #ff4d4d; color: white; cursor: not-allowed; border-color: #ff4d4d; opacity: 0.8; }
+.slot.yellow { background: #ffc107; color: black; border-color: #ffc107; }
+.slot.available:hover { background: #e0f2f1; border-color: #17b978; }
+.slot.selected { background: #17b978; color: white; border-color: #17b978; box-shadow: 0 0 8px rgba(23, 185, 120, 0.5); }
+
+.box-info { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #17b978; }
+#ca_da_chon_hien_thi { color: #17b978; font-size: 16px; font-weight: bold; }
+.total-price { margin-top: 10px; font-size: 18px; }
+#tong_tien_hien_thi { color: #ff5722; font-weight: bold; }
+
+.btn-submit { width: 100%; background: #ccc; color: white; padding: 15px; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: not-allowed; transition: background 0.2s; }
+
+.chu-thich { display: flex; gap: 15px; font-size: 13px; margin-top: 10px; margin-bottom: 15px; font-weight: bold; color: #555; }
+.chu-thich div { display: flex; align-items: center; gap: 5px; }
+.mau { width: 15px; height: 15px; border-radius: 3px; border: 1px solid #ccc; }
+.mau.available { background: white; }
+.mau.selected { background: #17b978; border-color: #17b978; }
+.mau.yellow { background: #ffc107; border-color: #ffc107; }
+.mau.booked { background: #ff4d4d; border-color: #ff4d4d; }
+.placeholder-text { color: #666; grid-column: span 10; }
+
+/* Modal QR */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 100%; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+.modal-content h3 { color: #1e3d59; margin-bottom: 5px; }
+.modal-content .desc { color: #666; font-size: 14px; margin-bottom: 20px; }
+#qr-img { width: 250px; border: 1px solid #ddd; border-radius: 8px; padding: 10px; }
+.amount-text { margin: 15px 0; font-size: 18px; }
+#qr-tien { color: #ff5722; }
+.btn-confirm { background: #17b978; color: white; padding: 12px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin-bottom: 10px; }
+.btn-close { background: #f1f3f5; color: #333; padding: 10px; border: none; border-radius: 6px; cursor: pointer; width: 100%; }
+/* Hiệu ứng Rê chuột (Hover) cho Menu Trang Khách */
+.navbar-custom .nav-links a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.25s ease-in-out; /* Tạo độ mượt khi di chuột */
+}
+
+/* Khi trỏ chuột vào nút chưa bấm -> Nổi bật màu cam rực rỡ & nhô nhẹ lên */
+.navbar-custom .nav-links a:hover {
+    background-color: rgba(255, 152, 0, 0.2); /* Nền cam trong suốt nhẹ */
+    color: #ff9800 !important;               /* Chữ đổi sang màu cam nổi bật */
+    transform: translateY(-2px);             /* Nút nhô nhẹ lên trên */
+}
+
+/* Nút đang ở trang hiện tại (active) */
+.navbar-custom .nav-links a.active {
+    background-color: #ff9800;
+    color: #000 !important;
+    font-weight: bold;
+}

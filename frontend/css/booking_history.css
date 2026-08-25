@@ -1,0 +1,52 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; }
+.container { max-width: 1000px; margin: 30px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+/* Navbar Client */
+.navbar-custom { background: #1e3d59; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 30px; }
+.navbar-custom .brand { font-weight: bold; font-size: 20px; }
+.navbar-custom .nav-links { display: flex; gap: 20px; align-items: center; }
+.navbar-custom .nav-links a { color: white; text-decoration: none; }
+.navbar-custom .nav-links a.active { font-weight: bold; border-bottom: 2px solid #ff9800; padding-bottom: 3px; }
+.btn-login-nav { background: #17b978; color: white; padding: 8px 15px; border-radius: 4px; text-decoration: none; font-weight: bold; }
+
+h2 { color: #1e3d59; margin-bottom: 5px; }
+.desc-warning { color: #666; margin-bottom: 20px; font-size: 14px; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 30px; }
+th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+th { background-color: #f8f9fa; }
+
+.title { font-size: 20px; font-weight: bold; color: #1e3d59; border-left: 5px solid #17b978; padding-left: 10px; margin-top: 20px; }
+.title.giai { border-left-color: #ff9800; }
+
+.status { padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 13px; display: inline-block; }
+.st-trang { background: #e9ecef; color: #495057; }
+.st-vang { background: #fff3cd; color: #856404; }
+.st-xanh { background: #d4edda; color: #155724; }
+.st-huy { background: #f8d7da; color: #721c24; }
+
+.btn-huy { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+.btn-huy:hover { background: #c82333; }
+.btn-huy:disabled { background: #ccc; cursor: not-allowed; }
+.loading-text { color: #999; text-align: center; }
+/* Hiệu ứng Rê chuột (Hover) cho Menu Trang Khách */
+.navbar-custom .nav-links a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.25s ease-in-out; /* Tạo độ mượt khi di chuột */
+}
+
+/* Khi trỏ chuột vào nút chưa bấm -> Nổi bật màu cam rực rỡ & nhô nhẹ lên */
+.navbar-custom .nav-links a:hover {
+    background-color: rgba(255, 152, 0, 0.2); /* Nền cam trong suốt nhẹ */
+    color: #ff9800 !important;               /* Chữ đổi sang màu cam nổi bật */
+    transform: translateY(-2px);             /* Nút nhô nhẹ lên trên */
+}
+
+/* Nút đang ở trang hiện tại (active) */
+.navbar-custom .nav-links a.active {
+    background-color: #ff9800;
+    color: #000 !important;
+    font-weight: bold;
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Quản Lý Bảng Vàng Giải Đấu</title>
+    <link rel="stylesheet" href="css/admin_tournaments.css">
+    <style>
+        /* Nút X đỏ tròn ở góc từng ảnh preview */
+        .preview-img-box {
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 8px;
+        }
+        .preview-img-box img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 2px solid #ff9800;
+            display: block;
+        }
+        .btn-xoa-anh-giai {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ff5722;
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            padding: 0;
+            transition: 0.2s;
+        }
+        .btn-xoa-anh-giai:hover {
+            background: #d32f2f;
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar-admin">
+    <div class="brand">⚙️ ADMIN</div>
+    <div class="nav-links">
+        <a href="admin_dashboard.html" style="background: rgba(255,255,255,0.15); font-weight: bold;">⬅️ Quay lại</a>
+        <a href="index.html" target="_blank" style="background: #17b978; font-weight: bold; color: white;">🌐 Trang Chủ Khách</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2>🏆 QUẢN LÝ BẢNG VÀNG VINH DANH GIẢI ĐẤU</h2>
+
+    <div class="form-card">
+        <h3 id="form-title">➕ Cập Nhật Vinh Danh Giải Đấu Mới</h3>
+        
+        <div class="form-group">
+            <label>1. Gợi ý Giải Đấu trong hệ thống (Auto-fill):</label>
+            <select id="select-giai-dau">
+                <option value="">-- Chọn giải gợi ý trong hệ thống --</option>
+                <option value="-1">➕ [Thêm Giải Đấu Ngoài Hệ Thống]</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Tên Giải Đấu (*):</label>
+                <input type="text" id="ten_giai" placeholder="VD: Cup Mùa Xuân 2026">
+            </div>
+            <div class="form-group">
+                <label>Đơn vị tổ chức (*):</label>
+                <input type="text" id="don_vi_to_chuc" placeholder="VD: FC Doanh Nghiệp">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Sân Đăng Cai (*):</label>
+                <input type="text" id="ten_san" placeholder="VD: Sân Bóng FC (Trung Tâm)">
+            </div>
+            <div class="form-group">
+                <label>Ngày Khai Mạc (*):</label>
+                <input type="date" id="ngay_khai_mac">
+            </div>
+            <div class="form-group">
+                <label>Ngày Bế Mạc (*):</label>
+                <input type="date" id="ngay_be_mac">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>🥇 Đội Vô Địch (*):</label>
+                <input type="text" id="doi_vo_dich" placeholder="VD: FC Anh Em">
+            </div>
+            <div class="form-group">
+                <label>🥈 Đội Á Quân:</label>
+                <input type="text" id="doi_a_quan" placeholder="VD: FC Phố Cổ">
+            </div>
+            <div class="form-group">
+                <label>⚽ Vua Phá Lưới (*):</label>
+                <input type="text" id="vua_pha_luoi" placeholder="VD: Nguyễn Văn A (10 Bàn)">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Ghi chú thêm từ Ban Tổ Chức:</label>
+            <textarea id="ghi_chu" rows="2" placeholder="VD: Giải đấu diễn ra vô cùng sôi nổi và kịch tính..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Ảnh Trao Cúp & Khoảnh Khắc (Chọn nhiều ảnh, ảnh đầu tiên làm ảnh đại diện):</label>
+            <div class="upload-btn-wrapper">
+                <button type="button" class="btn-custom-upload" id="btn-trigger-file">
+                    📁 Chọn ảnh từ máy tính <span id="badge-count-anh" class="badge-count" style="display:none;">+0 ảnh</span>
+                </button>
+                <input type="file" id="input-files-anh" multiple accept="image/*" style="display:none;">
+            </div>
+            <div id="preview-anh-upload" class="preview-grid" style="margin-top: 10px;"></div>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" id="btn-luu-vinh-danh" class="btn-primary">💾 Lưu Lên Bảng Vàng</button>
+        </div>
+    </div>
+
+    <div class="list-card">
+        <h3>📜 Danh Sách Bài Vinh Danh Đang Hiển Thị Trang Khách</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên Giải Đấu</th>
+                    <th>Sân Đăng Cai</th>
+                    <th>Đội Vô Địch</th>
+                    <th>Vua Phá Lưới</th>
+                    <th>Số Ảnh Album</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-vinh-danh">
+                <tr><td colspan="7" class="loading">Đang tải danh sách bài vinh danh...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="js/admin_tournaments.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; display: flex; height: 100vh; justify-content: center; align-items: center; margin: 0; }
+.register-card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 100%; max-width: 450px; }
+h2 { color: #1e3d59; text-align: center; margin-bottom: 25px; border-bottom: 2px solid #17b978; padding-bottom: 10px; }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #333; }
+.form-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; box-sizing: border-box; }
+.btn-register { width: 100%; background: #17b978; color: white; padding: 12px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+.btn-register:hover { background: #118f5c; }
+.switch-page { text-align: center; margin-top: 20px; font-size: 14px; color: #666; }
+.switch-page a { color: #17b978; text-decoration: none; font-weight: bold; }
+#thong-bao { padding: 12px; border-radius: 6px; margin-bottom: 15px; font-weight: bold; text-align: center; display: none; }

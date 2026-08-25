@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Báo Cáo Doanh Thu & Hiệu Suất</title>
+    <link rel="stylesheet" href="css/admin_courts.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .analytics-container { padding: 20px; background: #f8fafc; }
+        
+        /* 1. Header & Bộ lọc */
+        .analytics-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .filter-group { display: flex; background: white; border-radius: 8px; border: 1px solid #e2e8f0; padding: 4px; gap: 5px; }
+        .filter-btn { border: none; background: transparent; padding: 8px 16px; border-radius: 6px; font-weight: bold; color: #64748b; cursor: pointer; transition: 0.2s; }
+        .filter-btn.active { background: #1e293b; color: white; }
+
+        /* 2. 4 Thẻ KPI trên cùng */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .kpi-card { background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .kpi-title { font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .kpi-value { font-size: 26px; font-weight: 800; color: #0f172a; }
+        .kpi-sub { font-size: 12px; color: #94a3b8; margin-top: 6px; }
+
+        /* 3. Khối so sánh hiệu suất sân */
+        .courts-comparison { margin-bottom: 25px; }
+        .section-title { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 12px; }
+        .courts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+        .court-card { background: white; padding: 15px; border-radius: 10px; border: 2px solid #e2e8f0; cursor: pointer; transition: 0.2s; }
+        .court-card.active { border-color: #16a34a; background: #f0fdf4; }
+        .court-name { font-weight: 700; color: #0f172a; font-size: 15px; margin-bottom: 5px; }
+        .court-stat { font-size: 12px; color: #475569; }
+
+        /* 4. Layout 2 Cột bên dưới (Biểu đồ + Báo cáo nhanh) */
+        .main-analytics-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        @media (max-width: 992px) { .main-analytics-layout { grid-template-columns: 1fr; } }
+
+        .chart-box { background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .side-reports { display: flex; flex-direction: column; gap: 20px; }
+        .report-card { background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        
+        .info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #e2e8f0; font-size: 14px; }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: #64748b; }
+        .info-val { font-weight: 700; color: #0f172a; }
+    </style>
+</head>
+<body>
+
+<div class="navbar-admin">
+    <div class="brand">🛠️ admin</div>
+    <div class="nav-links">
+        <a href="admin_dashboard.html">📋 Duyệt Đơn</a>
+        <a href="admin_calendar.html">📆 Lịch sử dụng sân</a>
+        <a href="admin_analytics.html" class="active">📊 Doanh Thu</a>
+        <a href="admin_courts.html">⚙️ Thiết Lập Sân</a>
+        <a href="index.html" class="view-client">🌍 Xem trang Khách</a>
+        <div class="bell-box">
+            <span class="bell-icon">🔔</span>
+            <span class="badge" id="so-thong-bao">0</span>
+        </div>
+        <div id="vung-tai-khoan-admin"></div>
+    </div>
+</div>
+
+<div class="analytics-container">
+    <div class="analytics-header">
+        <div>
+            <h2 style="margin:0; color:#0f172a;">📊 Báo cáo Doanh thu & Hiệu suất</h2>
+            <p style="margin:4px 0 0 0; color:#64748b; font-size:13px;">Tổng quan tài chính và tỷ lệ lấp đầy sân bóng</p>
+        </div>
+        <!-- BỘ LỌC THỜI GIAN ĐẦY ĐỦ CÁC CHẾ ĐỘ -->
+    <div class="filter-group">
+        <button class="filter-btn" onclick="locTheoThoiGian('ngay')">Ngày</button>
+        <button class="filter-btn active" onclick="locTheoThoiGian('tuan')">Tuần (T2-CN)</button>
+        <button class="filter-btn" onclick="locTheoThoiGian('thang')">Tháng</button>
+        <button class="filter-btn" onclick="locTheoThoiGian('nam')">Năm</button>
+       
+    </div>
+    </div>
+
+    <!-- 4 THẺ KPI TRÊN CÙNG -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-title">Tổng doanh thu 📈</div>
+            <div class="kpi-value" id="kpi-tong-doanh-thu">0 VNĐ</div>
+            <div class="kpi-sub" id="kpi-tong-mo-ta">Thực thu từ tất cả các đơn</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Ca lẻ ⚽</div>
+            <div class="kpi-value" id="kpi-ca-le">0 VNĐ</div>
+            <div class="kpi-sub" id="kpi-ca-le-pt">0% tổng thu</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Giải đấu 🏆</div>
+            <div class="kpi-value" id="kpi-giai-dau" style="color: #2563eb;">0 VNĐ</div>
+            <div class="kpi-sub" id="kpi-giai-dau-pt">0% tổng thu</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Ca bị hủy / Cọc 📅</div>
+            <div class="kpi-value" id="kpi-so-ca-huy" style="color: #dc2626;">0 ca</div>
+            <div class="kpi-sub" id="kpi-tien-coc-giu">Thu cọc giữ lại: 0 VNĐ</div>
+        </div>
+    </div>
+
+    <!-- SO SÁNH HIỆU SUẤT GIỮA CÁC SÂN -->
+    <div class="courts-comparison">
+        <div class="section-title">🏟️ So sánh hiệu suất giữa các sân</div>
+        <div class="courts-grid" id="danh-sach-san-cards">
+            <!-- Render danh sách các sân động từ JS -->
+        </div>
+    </div>
+
+    <!-- KHU VỰC BIỂU ĐỒ & BÁO CÁO NHANH -->
+    <div class="main-analytics-layout">
+        <div class="chart-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                <div class="section-title" style="margin-bottom:0;" id="tieu-de-bieu-do">📈 Xu hướng doanh thu theo sân</div>
+                
+                <div style="display: flex; align-items: center; gap: 8px; background: #f1f5f9; padding: 4px 10px; border-radius: 8px; border: 1px solid #cbd5e1;">
+                    <button onclick="chuyenThoiGian(-1)" style="border:none; background:white; border-radius:4px; padding:4px 10px; font-weight:bold; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.1);">◀ Trước</button>
+                    <span id="hien-thi-khoang-thoi-gian" style="font-weight:700; color:#1e293b; font-size:13px; min-width: 160px; text-align: center;">...</span>
+                    <button onclick="chuyenThoiGian(1)" style="border:none; background:white; border-radius:4px; padding:4px 10px; font-weight:bold; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.1);">Sau ▶</button>
+                    <button onclick="veHienTai()" style="border:none; background:#ff9800; color:white; border-radius:4px; padding:4px 8px; font-size:12px; font-weight:bold; cursor:pointer;">Hiện tại</button>
+                </div>
+            </div>
+
+            <div style="height: 350px;">
+                <canvas id="chartDoanhThuBar"></canvas>
+            </div>
+        </div>
+        <div class="side-reports">
+            <!-- BÁO CÁO NHANH SÂN DANG CHỌN -->
+            <div class="report-card">
+                <div class="section-title" style="margin-bottom:15px;" id="ten-san-baocao">Báo cáo nhanh: Tất cả các sân</div>
+                <div class="info-row">
+                    <span class="info-label">Tỷ lệ lấp đầy:</span>
+                    <span class="info-val" id="bc-ty-le-lap-day" style="color:#16a34a;">0%</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Doanh thu / Giờ (TB):</span>
+                    <span class="info-val" id="bc-doanh-thu-gio">0 VNĐ</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Tổng ca đã đặt:</span>
+                    <span class="info-val" id="bc-tong-ca-dat">0 ca</span>
+                </div>
+                <div class="info-row" style="background:#fef3c7; padding:10px; border-radius:6px; margin-top:5px;">
+                    <span class="info-label" style="color:#b45309; font-weight:bold;">🔥 Khung giờ cao điểm:</span>
+                    <span class="info-val" id="bc-gio-cao-diem" style="color:#b45309;">17:30 - 20:30</span>
+                </div>
+            </div>
+
+            <!-- CƠ CẤU NGUỒN THU (BIỂU ĐỒ TRÒN) -->
+            <div class="report-card">
+                <div class="section-title">📊 Cơ cấu nguồn thu</div>
+                <div style="height: 180px; position:relative;">
+                    <canvas id="chartCoCauDoughnut"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/admin_analytics.js"></script>
+<script src="js/admin_common.js"></script>
+</body>
+</html>

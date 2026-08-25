@@ -1,0 +1,73 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; }
+
+/* Navbar Client */
+.navbar-custom { background: #1e3d59; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 30px; }
+.navbar-custom .brand { font-weight: bold; font-size: 20px; }
+.navbar-custom .nav-links { display: flex; gap: 20px; align-items: center; }
+.navbar-custom .nav-links a { color: white; text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: all 0.25s ease-in-out; }
+.navbar-custom .nav-links a:hover { background-color: rgba(255, 152, 0, 0.2); color: #ff9800 !important; transform: translateY(-2px); }
+.navbar-custom .nav-links a.active { background-color: #ff9800; color: #000 !important; font-weight: bold; }
+.btn-login-nav { background: #17b978; color: white; padding: 8px 15px; border-radius: 4px; text-decoration: none; font-weight: bold; }
+
+.container { max-width: 1100px; margin: 0 auto 40px auto; padding: 0 15px; }
+
+.header-banner { background: linear-gradient(135deg, #1e3d59, #17b978); color: white; padding: 30px; border-radius: 12px; text-align: center; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.header-banner h2 { font-size: 26px; margin-bottom: 10px; }
+.header-banner p { font-size: 15px; margin-bottom: 20px; color: #e0f2f1; }
+.btn-to-chuc { background: #ff9800; color: #000; padding: 12px 25px; border-radius: 6px; font-weight: bold; text-decoration: none; display: inline-block; transition: 0.2s; }
+.btn-to-chuc:hover { background: #e68a00; transform: scale(1.03); }
+
+.tournaments-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+.card-vinh-danh { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; cursor: pointer; transition: 0.2s; }
+.card-vinh-danh:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+.card-vinh-danh img { width: 100%; height: 200px; object-fit: cover; }
+.card-body { padding: 20px; }
+.card-title { font-size: 18px; font-weight: bold; color: #1e3d59; margin-bottom: 10px; }
+.card-info { font-size: 14px; color: #555; margin-bottom: 8px; }
+.vinh-danh-badge { background: #fff3cd; color: #856404; padding: 10px; border-radius: 6px; font-weight: bold; font-size: 14px; margin-top: 10px; border: 1px solid #ffeeba; }
+.album-hint { font-size: 12px; color: #ff9800; font-weight: bold; margin-top: 8px; text-align: right; }
+
+/* Modal Album Popup */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+.modal-content { position: relative; max-width: 80%; max-height: 80%; text-align: center; }
+.modal-content img { max-width: 100%; max-height: 75vh; border-radius: 8px; border: 3px solid #ff9800; }
+.close-modal { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; }
+.nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,152,0,0.8); color: black; border: none; font-size: 30px; padding: 10px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; }
+.prev-btn { left: -60px; }
+.next-btn { right: -60px; }
+.caption { color: #fff; font-size: 16px; margin-top: 15px; font-weight: bold; }
+/* Style ô tìm kiếm Bảng Vàng */
+.search-box-vinhdanh {
+    max-width: 550px;
+    margin: 15px auto 10px auto;
+}
+
+.search-box-vinhdanh input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 2px solid #ff9800;
+    font-size: 15px;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: 0.2s;
+}
+
+.search-box-vinhdanh input:focus {
+    box-shadow: 0 4px 15px rgba(255,152,0,0.4);
+    transform: scale(1.02);
+}
+/* Style Modal Chi Tiết */
+.modal-content-chitiet { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 600px; position: relative; box-shadow: 0 5px 25px rgba(0,0,0,0.3); text-align: left; }
+.close-chitiet { position: absolute; top: 15px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; color: #888; }
+.close-chitiet:hover { color: #000; }
+.ct-body p { margin-bottom: 10px; font-size: 15px; color: #333; }
+.ct-ghichu-box { background: #fff3e0; border-left: 4px solid #ff9800; padding: 12px; border-radius: 4px; margin-top: 15px; }
+
+/* Tách biệt click Ảnh và click Chữ */
+.card-img-wrap { cursor: pointer; position: relative; }
+.card-img-wrap img { width: 100%; height: 200px; object-fit: cover; }
+.card-img-wrap:hover::after { content: "🖼️ Nhấp xem Album ảnh"; position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; font-size: 12px; border-radius: 4px; }
+.card-body-clickable { cursor: pointer; padding: 20px; transition: 0.2s; }
+.card-body-clickable:hover { background-color: #fafafa; }

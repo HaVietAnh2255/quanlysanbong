@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Lịch Sử Dụng Sân Trực Quan</title>
+    <link rel="stylesheet" href="css/admin_courts.css">
+    <link rel="stylesheet" href="css/admin_calendar.css">
+    <style>
+        .calendar-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .legend-box { display: flex; gap: 15px; font-size: 13px; font-weight: bold; background: #fff; padding: 8px 15px; border-radius: 6px; border: 1px solid #ddd; }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .dot { width: 14px; height: 14px; border-radius: 3px; border: 1px solid #ccc; display: inline-block; }
+        .dot-free { background: #ffffff; }
+        .dot-le { background: #2e7d32; }
+        .dot-giai { background: #8e24aa; }
+        
+        .calendar-grid-container { overflow-x: auto; background: white; border-radius: 8px; border: 1px solid #ddd; }
+        .calendar-table { border-collapse: collapse; width: 100%; text-align: center; font-size: 12px; }
+        .calendar-table th, .calendar-table td { border: 1px solid #e0e0e0; padding: 6px 2px; min-width: 38px; height: 35px; }
+        .calendar-table th { background: #1e3d59; color: white; font-weight: bold; font-size: 11px; white-space: nowrap; }
+        .san-col { background: #f4f6f9; font-weight: bold; min-width: 100px !important; text-align: left; padding-left: 10px !important; position: sticky; left: 0; z-index: 2; border-right: 2px solid #ccc !important; }
+        
+        /* Màu sắc khối */
+        .slot-free { background: #ffffff; }
+        .slot-le { background: #2e7d32 !important; color: white; cursor: pointer; transition: 0.2s; }
+        .slot-le:hover { background: #1b5e20 !important; }
+        .slot-giai { background: #8e24aa !important; color: white; cursor: pointer; transition: 0.2s; }
+        .slot-giai:hover { background: #6a1b9a !important; }
+
+        /* Style cho bộ nút chuyển ngày nhanh */
+        .nav-date-group { display: flex; align-items: center; gap: 6px; background: #ffffff; padding: 4px 8px; border-radius: 6px; border: 1px solid #ccc; }
+        .btn-nav-date { background: #e2e8f0; color: #1e293b; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 13px; cursor: pointer; transition: background 0.2s; }
+        .btn-nav-date:hover { background: #cbd5e1; }
+    </style>
+</head>
+<body>
+
+<div class="navbar-admin">
+    <div class="brand">🛠️ admin</div>
+    <div class="nav-links">
+        <a href="admin_dashboard.html">📋 Duyệt Đơn</a>
+        <a href="admin_calendar.html" class="active">📆 Lịch sử dụng sân</a>
+        <a href="admin_analytics.html">📊 Doanh Thu</a>
+        <a href="admin_courts.html">⚙️ Thiết Lập Sân</a>
+        <a href="index.html" class="view-client">🌍 Xem trang Khách</a>
+        <div class="bell-box">
+            <span class="bell-icon">🔔</span>
+            <span class="badge" id="so-thong-bao">0</span>
+        </div>
+        <div id="vung-tai-khoan-admin"></div>
+    </div>
+</div>
+
+<div class="container" style="max-width: 98%;">
+    <h2>📆 BẢNG MA TRẬN LỊCH SÂN TRỰC QUAN</h2>
+    
+    <!-- THANH CHỌN NGÀY VỚI NÚT LƯỚT TỚI/LÙI & BẢNG GHI CHÚ MÀU -->
+    <div class="calendar-controls">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <label style="font-weight: bold; color: #1e3d59;">📅 Ngày Xem:</label>
+            
+            <!-- CỤM NÚT ĐIỀU HƯỚNG NGÀY TRƯỚC / SAU -->
+            <div class="nav-date-group">
+                <button type="button" class="btn-nav-date" onclick="chuyenNgayLich(-1)">◀ Ngày trước</button>
+                <input type="date" id="select-ngay-xem" style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; font-weight: bold;">
+                <button type="button" class="btn-nav-date" onclick="chuyenNgayLich(1)">Ngày sau ▶</button>
+            </div>
+
+            <button id="btn-hom-nay" style="background: #ff9800; color: white; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer;">Hôm Nay</button>
+        </div>
+
+        <!-- HỘP GHI CHÚ GÓC BÊN NGOÀI -->
+        <div class="legend-box">
+            <div class="legend-item"><span class="dot dot-free"></span> ⚪ Trống</div>
+            <div class="legend-item"><span class="dot dot-le"></span> 🟢 Đơn Lẻ</div>
+            <div class="legend-item"><span class="dot dot-giai"></span> 🟣 Giải Đấu</div>
+        </div>
+    </div>
+
+    <!-- MA TRẬN LỊCH SÂN BÓNG 30 PHÚT -->
+    <div class="calendar-grid-container">
+        <table class="calendar-table">
+            <thead>
+                <tr id="table-header-gio">
+                    <th class="san-col">🏟️ Sân Bóng</th>
+                    <!-- Các mốc giờ 30p (05:00, 05:30...) rendered từ JS -->
+                </tr>
+            </thead>
+            <tbody id="table-body-lich">
+                <!-- Render dòng theo Sân Bóng và gộp ô từ JS -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL POPUP THÔNG TIN ĐƠN ĐẶT -->
+<div id="modal-chitiet-don" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center;">
+    <div class="modal-content" style="background:white; width:90%; max-width:450px; padding:22px; border-radius:10px; position:relative; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+        <span id="btn-dong-modal-don" style="position:absolute; top:12px; right:18px; font-size:24px; cursor:pointer; font-weight:bold; color:#888;">&times;</span>
+        
+        <h3 id="dt-tieu-de" style="color:#1e3d59; margin-top:0; border-bottom: 2px solid #ff9800; padding-bottom: 10px;">⚽ THÔNG TIN CHI TIẾT</h3>
+        
+        <div style="background:#f8f9fa; padding:12px; border-radius:8px; margin: 12px 0; line-height: 1.8;">
+            <p style="margin:0;">👤 <b>Người đại diện:</b> <span id="dt-khach-ten" style="color:#1e3d59; font-weight:bold;"></span></p>
+            <p style="margin:0;">📞 <b>Số điện thoại:</b> <a id="dt-khach-sdt" href="#" style="color:#ff9800; font-weight:bold; text-decoration:none;"></a></p>
+            <p style="margin:0;" id="box-don-vi">🏢 <b>Đơn vị / Công ty:</b> <span id="dt-don-vi" style="color:#555;"></span></p>
+        </div>
+
+        <div style="background:#e3f2fd; padding:12px; border-radius:8px; line-height: 1.8;">
+            <p style="margin:0;">🏟️ <b>Sân sử dụng:</b> <span id="dt-san-ten" style="font-weight:bold;"></span></p>
+            <p style="margin:0;">⏰ <b>Khung giờ đá:</b> <span id="dt-thoi-gian" style="color:#c62828; font-weight:bold;"></span></p>
+            <p style="margin:0;" id="box-tong-tien">💰 <b>Tổng tiền ca sân:</b> <span id="dt-tong-tien" style="font-weight:bold; color:#2e7d32;"></span></p>
+            <p style="margin:0;" id="box-hop-dong">📜 <b>Tổng giá trị Hợp đồng:</b> <span id="dt-tong-hd" style="font-weight:bold; color:#8e24aa;"></span></p>
+        </div>
+
+        <div style="margin-top: 18px; text-align: right;">
+            <button id="btn-dong-popup" style="background:#6c757d; color:white; border:none; padding:8px 18px; border-radius:5px; font-weight:bold; cursor:pointer;">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<!-- ĐOẠN JS NHỎ XỬ LÝ CHUYỂN NGÀY VÀO INPUT KHÔNG LÀM ẢNH HƯỞNG FILE CŨ -->
+<script>
+    function chuyenNgayLich(delta) {
+        const inputElem = document.getElementById('select-ngay-xem');
+        if (!inputElem) return;
+
+        let curVal = inputElem.value;
+        let d = curVal ? new Date(curVal) : new Date();
+        
+        // Cộng / trừ số ngày
+        d.setDate(d.getDate() + delta);
+
+        // Định dạng YYYY-MM-DD
+        let y = d.getFullYear();
+        let m = String(d.getMonth() + 1).padStart(2, '0');
+        let day = String(d.getDate()).padStart(2, '0');
+
+        inputElem.value = `${y}-${m}-${day}`;
+
+        // Trigger sự kiện change để gọi hàm load ma trận lịch sẵn có trong admin_calendar.js
+        inputElem.dispatchEvent(new Event('change'));
+    }
+</script>
+
+<script src="js/admin_calendar.js"></script>
+<script src="js/admin_common.js"></script>
+</body>
+</html>

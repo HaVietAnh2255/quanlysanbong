@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chủ Sân - Bảng Điều Khiển Toàn Diện</title>
+    <link rel="stylesheet" href="css/admin_dashboard.css">
+</head>
+<body>
+
+<div class="navbar-admin">
+    <div class="brand">🛠️ admin</div>
+    <div class="nav-links">
+        <a href="admin_dashboard.html" class="active">📋 Duyệt Đơn</a>
+        <a href="admin_calendar.html">📆 Lịch sử dụng sân</a>
+        <a href="admin_analytics.html">📊 Doanh Thu</a>
+        <a href="admin_courts.html">⚙️ Thiết Lập Sân</a>
+        <a href="index.html" class="view-client">🌍 Xem trang Khách</a>
+        
+        <div class="bell-box">
+            <span class="bell-icon">🔔</span>
+            <span style="font-size: 14px; color: #ccc;"></span>
+            <span class="badge" id="so-thong-bao" style="display: none;"></span>
+        </div>
+        <div id="vung-tai-khoan-admin"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section-title">⚽ QUẢN LÝ ĐẶT SÂN LẺ & HOÀN HỦY THEO QUY ĐỊNH</div>
+    
+    <!-- 🎯 Khung cuộn cố định cho Bảng Đơn Lẻ (Tối đa 5 dòng, vượt quá sẽ hiện thanh cuộn) -->
+    <div style="max-height: 420px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <table style="margin: 0; width: 100%;">
+            <thead style="position: sticky; top: 0; background: #1e3d59; color: white; z-index: 2;">
+                <tr>
+                    <th>Mã Đơn</th>
+                    <th>Khách Hàng</th>
+                    <th>Sân Bóng</th>
+                    <th>Thời Gian Đặt</th>
+                    <th>Số Tiền</th>
+                    <th>Trạng Thái</th>
+                    <th>Hành Động Xác Nhận</th>
+                </tr>
+            </thead>
+            <tbody id="bang-don-hang"></tbody>
+        </table>
+    </div>
+    <!-- Nút bấm Tải thêm / Xem tất cả đơn lẻ -->
+    <div id="box-nut-le" style="text-align: center; margin-top: 10px; margin-bottom: 30px;"></div>
+
+    <div class="section-title tournament">🏆 ĐƠN ĐĂNG KÝ TỔ CHỨC GIẢI ĐẤU (CẦN TƯ VẤN HỢP ĐỒNG)</div>
+    
+    <!-- 🎯 Khung cuộn cố định cho Bảng Giải Đấu -->
+    <div style="max-height: 420px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <table style="margin: 0; width: 100%;">
+            <thead style="position: sticky; top: 0; background: #1e3d59; color: white; z-index: 2;">
+                <tr>
+                    <th>Mã Giải</th>
+                    <th>Người Đại Diện</th>
+                    <th>Thông Tin Giải Đấu</th>
+                    <th>Sân Đăng Cai</th>
+                    <th>Thời Gian Diễn Ra</th>
+                    <th>Yêu Cầu Ghi Chú</th>
+                    <th>Trạng Thái</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody id="bang-giai-dau"></tbody>
+        </table>
+    </div>
+    <!-- Nút bấm Tải thêm / Xem tất cả giải đấu -->
+    <div id="box-nut-giai" style="text-align: center; margin-top: 10px; margin-bottom: 30px;"></div>
+
+    <div class="section-title tournament-honor">🏅 VINH DANH GIẢI ĐẤU THÀNH CÔNG (CẬP NHẬT TRANG CHỦ BẢNG VÀNG)</div>
+    <div class="vinh-danh-box">
+        <p>Sếp bấm vào nút dưới đây để tiến hành cập nhật đội vô địch, vua phá lưới, đăng ảnh cúp vinh danh giải đấu lên trang chủ cho khách hàng chiêm ngưỡng nhé:</p>
+        <a href="admin_tournaments.html" class="btn-vinh-danh">🏆 ĐI ĐẾN TRANG CẬP NHẬT VINH DANH BẢNG VÀNG</a>
+    </div>
+</div>
+
+<!-- Modal Hoàn Tiền QR -->
+<div id="hoan-tien-modal" class="modal">
+    <div class="modal-content">
+        <h3>Bắn Tiền Hoàn Trả Khách Hàng</h3>
+        <p class="warning-text">⚠️ Đơn hủy hợp lệ trước 24h. Sếp cần hoàn trả 50% tiền cọc!</p>
+        <img id="qr-hoan-img" src="" alt="QR Hoàn Tiền">
+        <div class="bank-detail">
+            <p><b>Ngân hàng:</b> <span id="txt-ngan-hang"></span></p>
+            <p><b>Số tài khoản:</b> <span id="txt-stk"></span></p>
+            <p><b>Chủ tài khoản:</b> <span id="txt-ten-chu-tk"></span></p>
+            <p class="money-refund"><b>Số tiền hoàn (50%):</b> <b id="txt-so-tien-hoan"></b></p>
+        </div>
+        <button id="btn-xac-nhan-da-hoan-tien" class="btn-confirm-refund">✅ Tôi đã chuyển khoản xong</button>
+        <button id="btn-dong-modal-hoan" class="btn-close-refund">Đóng để xem lại</button>
+    </div>
+</div>
+<!-- Modal Chốt Hợp Đồng Giải & Khóa Lịch Tự Động -->
+<div id="modal-chot-giai" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center;">
+    <div class="modal-content" style="background:white; width:90%; max-width:650px; padding:25px; border-radius:10px; position:relative; box-shadow: 0 5px 20px rgba(0,0,0,0.3); max-height:90vh; overflow-y:auto;">
+        <h3 style="color:#ff9800; margin-top:0; border-bottom:2px solid #ff9800; padding-bottom:10px;">🤝 CHỐT HỢP ĐỒNG & KHÓA LỊCH BÁO ĐỎ SÂN</h3>
+        
+        <div style="background:#f8f9fa; padding:15px; border-radius:8px; margin-bottom:15px;">
+            <p style="margin-top:0; white-space:pre-wrap;" id="chitiet-khach-yeu-cau"></p>
+        </div>
+
+        <div class="form-group" style="margin-bottom:15px;">
+            <label style="font-weight:bold; color:#1e3d59;">💰 Tổng Giá Trị Hợp Đồng (VNĐ):</label>
+            <input type="number" id="gia_thoa_thuan" value="5000000" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px; font-size:16px;">
+        </div>
+        
+        <div class="form-group" style="border: 1px solid #17b978; padding: 15px; border-radius: 8px;">
+            <label style="font-weight:bold; color:#17b978;">⏰ Khóa Lịch Thi Đấu Thực Tế (Hệ thống sẽ BÁO ĐỎ SÂN trên trang khách):</label>
+            <p style="font-size:12px; color:#555; margin-bottom:10px;">Sếp nhập đúng ngày, giờ lăn bóng nhé. Admin sẽ đóng vai khách hàng để giữ chỗ các slot này.</p>
+            
+            <div id="admin-khoa-lich-box">
+                <!-- Row mặc định -->
+                <div class="admin-ca-row" style="display:flex; gap:10px; margin-bottom:10px;">
+                    <input type="date" class="ad-ngay" style="padding:8px; border:1px solid #ccc; flex:1;" required>
+                    <input type="time" class="ad-tu" style="padding:8px; border:1px solid #ccc; width:110px;" required>
+                    <input type="time" class="ad-den" style="padding:8px; border:1px solid #ccc; width:110px;" required>
+                </div>
+            </div>
+            
+            <button id="btn-admin-them-ca" style="margin-top:10px; background:#17b978; color:white; padding:8px 15px; border:none; border-radius:5px; cursor:pointer;">➕ Thêm Trận Đấu</button>
+        </div>
+        
+        <div style="margin-top:20px; text-align:right;">
+            <button id="btn-dong-modal-giai" style="background:#6c757d; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; margin-right:10px;">Đóng Lại</button>
+            <button id="btn-luu-chot-giai" style="background:#ff9800; color:white; font-weight:bold; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">Lưu Hợp Đồng & Khóa Sân</button>
+        </div>
+    </div>
+</div>
+<script src="js/admin_common.js"></script>
+<script src="js/admin_dashboard.js"></script>
+
+</body>
+</html>

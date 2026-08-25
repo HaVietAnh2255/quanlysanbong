@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tổ Chức Giải Đấu</title>
+    <link rel="stylesheet" href="css/booking_tournament.css">
+    <style>
+        .ngay-da-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; padding: 10px; background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 5px; }
+        .ngay-da-row input, .ngay-da-row select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; flex: 1; }
+    </style>
+</head>
+<body>
+
+<div class="navbar-custom">
+    <div class="brand">⚽ SÂN BÓNG FC</div>
+    <div class="nav-links">
+        <a href="index.html">Trang Chủ</a>
+        <a href="tournaments.html">🏆 Bảng Vàng</a>
+        <a href="booking.html" class="active">📆 Đặt Sân</a>
+        <a href="booking_history.html">📜 Lịch Sử Đặt</a>
+        <div id="vung-tai-khoan">
+            <a href="login.html" class="btn-login-nav">Đăng Nhập</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>🏆 ĐĂNG KÝ TỔ CHỨC GIẢI ĐẤU CÔNG TY / HỘI NHÓM</h2>
+    <p class="subtitle">Điền thông tin giải đấu của bạn. Ban quản lý sân sẽ liên hệ trực tiếp để chốt lịch và ký hợp đồng bao sân!</p>
+
+    <form id="form-dang-ky-giai">
+        <div class="form-group">
+            <label>Tên Giải Đấu:</label>
+            <input type="text" id="ten_giai" placeholder="Ví dụ: Giải Bóng Đá Cúp Tứ Hùng 2026" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Đơn Vị / Công Ty Tổ Chức:</label>
+                <input type="text" id="don_vi_to_chuc" placeholder="Ví dụ: Công ty FPT Software" required>
+            </div>
+            <div class="form-group">
+                <label>Dự Kiến Số Đội Tham Gia:</label>
+                <input type="number" id="so_doi" min="2" max="32" value="8" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Chọn Sân Đăng Cai:</label>
+            <select id="san_id" required>
+                <option value="">-- Chọn sân bóng --</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label style="color: #ff9800; font-weight: bold;">Lịch Thi Đấu Dự Kiến (Có thể thêm nhiều ngày):</label>
+            <small class="highlight-note" style="display:block; margin-bottom:10px;">⚠️ Quy định: Phải đặt trước tối thiểu 7 ngày. Giờ cụ thể sẽ được Admin chốt sau khi gọi điện.</small>
+            
+            <div id="danh-sach-ngay-da">
+                <div class="ngay-da-row">
+                    <input type="date" class="ngay-giai" required>
+                    <select class="buoi-giai" required>
+                        <option value="Sáng (05:00 - 11:00)">Sáng (05:00 - 11:00)</option>
+                        <option value="Chiều (14:00 - 17:00)">Chiều (14:00 - 17:00)</option>
+                        <option value="Tối (17:00 - 23:00)">Tối (17:00 - 23:00)</option>
+                        <option value="Cả ngày (05:00 - 23:00)">Cả ngày (05:00 - 23:00)</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" id="btn-them-ngay" style="background:#17b978; color:white; padding:8px 15px; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">➕ Thêm Ngày Thi Đấu</button>
+        </div>
+
+        <div class="form-group">
+            <label>Yêu Cầu Bổ Sung (Trọng tài, Nước uống, Cờ cúp...):</label>
+            <textarea id="yeu_cau_them" rows="3" placeholder="Nhập các yêu cầu hỗ trợ khác..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">🚀 GỬI YÊU CẦU TỔ CHỨC GIẢI ĐẤU</button>
+    </form>
+</div>
+
+<script src="js/booking_tournament.js"></script>
+</body>
+</html>

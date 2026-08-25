@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Quản Lý Sân Bóng</title>
+    <link rel="stylesheet" href="css/admin_courts.css">
+</head>
+<body>
+
+<div class="navbar-admin">
+    <div class="brand">🛠️ admin</div>
+    <div class="nav-links">
+        <a href="admin_dashboard.html">📋 Duyệt Đơn</a>
+        <a href="admin_calendar.html">📆 Lịch sử dụng sân</a>
+        <a href="admin_analytics.html">📊 Doanh Thu</a>
+        <a href="admin_courts.html" class="active">⚙️ Thiết Lập Sân</a>
+        <a href="index.html" class="view-client">🌍 Xem trang Khách</a>
+        
+        <div class="bell-box">
+            <span class="bell-icon">🔔</span>
+            <span class="badge" id="so-thong-bao">0</span>
+        </div>
+        <div id="vung-tai-khoan-admin"></div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>⚙️ QUẢN LÝ DANH SÁCH SÂN BÓNG</h2>
+    <p class="desc">Thêm mới, sửa đổi cấu trúc giá giờ cao điểm hoặc tạm dừng hoạt động các sân.</p>
+
+    <div class="court-grid" id="danh-sach-san-box">
+        <!-- Nút thêm sân sẽ được render từ JS -->
+    </div>
+
+    <div class="config-box">
+        <h3>🌐 CẤU HÌNH THÔNG TIN LIÊN HỆ & MẠNG XÃ HỘI</h3>
+        <p>Thông tin điền ở đây sẽ tự động hiển thị lấp đầy khoảng trống ở trang chủ Khách hàng.</p>
+        
+        <form id="form-config-he-thong">
+            <div class="form-group">
+                <label>🔗 Link Fanpage Facebook:</label>
+                <input type="url" id="cfg_fb" placeholder="https://www.facebook.com/sanbongfc">
+            </div>
+            <div class="form-group">
+                <label>💬 Link Group Zalo (Giao lưu, tìm đối nhanh):</label>
+                <input type="url" id="cfg_zalo" placeholder="https://zalo.me/g/abcxyz">
+            </div>
+            <div class="form-group">
+                <label>📞 Số điện thoại Hotline Sân bóng:</label>
+                <input type="text" id="cfg_hotline" placeholder="Ví dụ: 0987.654.321">
+            </div>
+            <button type="submit" class="btn-config-submit">💾 LƯU THÔNG TIN LIÊN HỆ</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Thêm/Sửa Sân -->
+<div id="modal-san-bong" class="modal">
+    <div class="modal-content">
+        <span class="close" id="btn-dong-modal">&times;</span>
+        <h3 id="modal-title">🏟️ THÊM SÂN BÓNG</h3>
+        <form id="form-san-bong">
+            <input type="hidden" id="edit-san-id"> 
+            
+            <div class="form-group">
+                <label>Tên sân bóng:</label>
+                <input type="text" id="ten_san" required>
+            </div>
+            <div class="form-group">
+                <label>🏷️ Giá Mặc Định (Cho các ca không cài giá riêng):</label>
+                <input type="number" id="gia_mac_dinh" placeholder="Ví dụ: 300000" required>
+            </div>           
+            <div class="form-group">
+                <label>Địa chỉ sân:</label>
+                <input type="text" id="dia_chi" required>
+            </div>
+
+            <!-- BỔ SUNG Ô NHẬP MÔ TẢ TIỆN ÍCH -->
+            <div class="form-group">
+                <label>✍️ Mô Tả Tiện Ích (Nước nôi, wifi, bóng, áo pitch...):</label>
+                <textarea id="mo_ta" rows="3" placeholder="Ví dụ: Miễn phí bình nước chanh muối, hỗ trợ bóng Động Lực, áo pitch sạch sẻ, có chỗ đỗ xe ô tô..."></textarea>
+            </div>
+
+            <!-- NÂNG CẤP CHỌN ẢNH TỪ MÁY TÍNH THAY VIỀ NHẬP TÊN FILE -->
+            <div class="form-group">
+                <label>🖼️ Chọn Ảnh Sân Từ Máy Tính (Ảnh đầu tiên/mới nhất làm ảnh đại diện):</label>
+                <div class="upload-btn-wrapper">
+                    <button type="button" class="btn-custom-upload" id="btn-trigger-court-file" style="background:#1e3d59; color:white; padding:10px 15px; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">
+                        📁 Chọn ảnh từ máy tính <span id="badge-count-court-anh" class="badge-count" style="display:none; background:#ff9800; color:#000; padding:2px 8px; border-radius:10px;">+0 ảnh</span>
+                    </button>
+                    <input type="file" id="input-files-court-anh" multiple accept="image/*" style="display:none;">
+                </div>
+                <div id="preview-court-anh-upload" class="preview-grid" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="highlight-label">💰 Cấu hình khung giờ & Giá tiền:</label>
+                <div id="khung-gia-container"></div>
+                <button type="button" id="btn-them-khung-gio" class="btn-add-time">+ Thêm Khung Giờ Khác</button>
+            </div>
+            
+            <button type="submit" class="btn-submit-modal">LƯU THÔNG TIN SÂN</button>
+        </form>
+    </div>
+</div>
+
+<script src="js/admin_courts.js"></script>
+<script src="js/admin_common.js"></script>
+</body>
+</html>

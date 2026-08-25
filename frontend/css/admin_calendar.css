@@ -1,0 +1,145 @@
+/* GIAO DIỆN BẢNG MA TRẬN LỊCH SỬ DỤNG SÂN */
+.calendar-controls { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-bottom: 20px; 
+    background: white; 
+    padding: 15px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+}
+
+.calendar-grid-container { 
+    overflow-x: auto; 
+    background: white; 
+    border-radius: 8px; 
+    padding: 15px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+}
+
+.calendar-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    min-width: 800px; 
+}
+
+.calendar-table th, .calendar-table td { 
+    border: 1px solid #e0e0e0; 
+    padding: 10px; 
+    text-align: center; 
+}
+
+.calendar-table th { 
+    background: #1e3d59; 
+    color: white; 
+    position: sticky; 
+    top: 0; 
+}
+
+.time-col { 
+    font-weight: bold; 
+    background: #f8f9fa; 
+    color: #333; 
+    width: 110px; 
+}
+
+/* TRẠNG THÁI Ô TRỐNG & ĐÃ ĐẶT */
+.slot-free { 
+    background: #e8f5e9; 
+    color: #2e7d32; 
+    cursor: pointer; 
+    font-size: 13px; 
+    font-weight: bold; 
+}
+
+.slot-free:hover { 
+    background: #c8e6c9; 
+}
+
+.slot-booked { 
+    background: #ffebee; 
+    color: #c62828; 
+    cursor: pointer; 
+    font-weight: bold; 
+    border: 2px solid #ef5350 !important; 
+    border-radius: 4px; 
+}
+
+.slot-booked:hover { 
+    background: #ffcdd2; 
+    transform: scale(1.02); 
+    transition: 0.1s; 
+}
+
+.badge-status { 
+    display: inline-block; 
+    padding: 3px 8px; 
+    border-radius: 12px; 
+    font-size: 11px; 
+    font-weight: bold; 
+    color: white; 
+    margin-top: 4px; 
+}
+
+.bg-coc { background: #ff9800; }
+.bg-full { background: #4caf50; }
+/* =========================================================
+   CỐ ĐỊNH KHUNG NAVBAR ADMIN ĐỒNG BỘ 100% TOÀN HỆ THỐNG
+========================================================= */
+.navbar-admin {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background-color: #1e3d59 !important;
+    padding: 0 20px !important;
+    height: 60px !important; /* Khóa chết chiều cao thanh Menu */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    box-sizing: border-box !important;
+}
+
+.navbar-admin .brand {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    white-space: nowrap !important;
+}
+
+.navbar-admin .nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important; /* Khóa khoảng cách giữa các nút */
+}
+
+.navbar-admin .nav-links a {
+    color: #cfd8dc !important;
+    text-decoration: none !important;
+    font-size: 14px !important; /* Cố định cỡ chữ tất cả các nút */
+    font-weight: 600 !important;
+    padding: 8px 14px !important; /* Cố định kích thước đệm nút */
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* Nút Đang Chọn (Active) */
+.navbar-admin .nav-links a.active {
+    background-color: #ff9800 !important;
+    color: #ffffff !important;
+}
+
+/* Nút Xem Trang Khách */
+.navbar-admin .nav-links a.view-client {
+    background-color: #17b978 !important;
+    color: #ffffff !important;
+}
+
+/* Khhu vực Thông báo & Tài khoản */
+#vung-tai-khoan-admin {
+    display: flex !important;
+    align-items: center !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+}

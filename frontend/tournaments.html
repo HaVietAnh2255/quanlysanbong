@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Vàng Vinh Danh Giải Đấu</title>
+    <link rel="stylesheet" href="css/tournaments.css">
+</head>
+<body>
+
+<div class="navbar-custom">
+    <div class="brand">⚽ SÂN BÓNG FC</div>
+    <div class="nav-links">
+        <a href="index.html">Trang Chủ</a>
+        <a href="tournaments.html" class="active">🏆 Bảng Vàng</a>
+        <a href="booking.html">📆 Đặt Sân</a>
+        <a href="booking_history.html">📜 Lịch Sử Đặt</a>
+        <div id="vung-tai-khoan">
+            <a href="login.html" class="btn-login-nav">Đăng Nhập</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="header-banner">
+        <h2>🏆 BẢNG VÀNG VINH DANH CÁC GIẢI ĐẤU THÀNH CÔNG</h2>
+        <p>Nơi lưu giữ khoảnh khắc giơ cúp vô địch và tôn vinh những chân sút xuất sắc nhất!</p>
+        <div class="search-box-vinhdanh">
+           <input type="text" id="input-search-giai" placeholder="🔍 Tìm theo Tên giải đấu hoặc Đơn vị tổ chức (Ví dụ: FPT, Tứ Hùng)...">
+        </div>
+        <a href="booking_tournament.html" class="btn-to-chuc">🤝 Đăng Ký Tổ Chức Giải Đấu Mới</a>
+    </div>
+
+    <div class="tournaments-grid" id="danh-sach-vinh-danh">
+        <p class="loading">Đang tải bảng vàng vinh danh...</p>
+    </div>
+</div>
+
+<!-- MODAL POPUP ALBUM ẢNH -->
+<div id="modal-album" class="modal">
+    <span class="close-modal">&times;</span>
+    <div class="modal-content">
+        <img id="modal-img-current" src="" alt="Album photo">
+        <button class="nav-btn prev-btn" id="prev-img">&#10094;</button>
+        <button class="nav-btn next-btn" id="next-img">&#10095;</button>
+        <div id="modal-caption" class="caption"></div>
+    </div>
+</div>
+<!-- MODAL POPUP XEM CHI TIẾT LỜI CẢM THÁN & THÔNG TIN -->
+<div id="modal-chitiet" class="modal">
+    <div class="modal-content-chitiet">
+        <span class="close-chitiet">&times;</span>
+        <h2 id="ct-ten-giai" style="color: #1e3d59; margin-bottom: 15px;">🏆 Tên Giải Đấu</h2>
+        <div class="ct-body">
+            <p><b>🏢 Đơn vị tổ chức:</b> <span id="ct-don-vi"></span></p>
+            <p><b>🏟️ Sân đăng cai:</b> <span id="ct-san"></span></p>
+            <p><b>⏳ Thời gian:</b> Từ <span id="ct-khai-mac"></span> đến <span id="ct-be-mac"></span></p>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+            <p>🥇 <b>Đội Vô Địch:</b> <span id="ct-vo-dich" style="color: #d4af37; font-weight: bold;"></span></p>
+            <p>🥈 <b>Đội Á Quân:</b> <span id="ct-a-quan" style="color: #8c959f; font-weight: bold;"></span></p>
+            <p>⚽ <b>Vua Phá Lưới:</b> <span id="ct-pha-luoi" style="color: #e65100; font-weight: bold;"></span></p>
+            <div class="ct-ghichu-box">
+                <b>✍️ Lời cảm thán / Ghi chú từ Ban Tổ Chức:</b>
+                <p id="ct-ghi-chu" style="font-style: italic; color: #555; margin-top: 5px;"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/tournaments.js"></script>
+</body>
+</html>

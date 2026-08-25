@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt Lịch Sân Bóng Thời Gian Thực</title>
+    <link rel="stylesheet" href="css/booking.css">
+</head>
+<body>
+
+<div class="navbar-custom">
+    <div class="brand">⚽ SÂN BÓNG FC</div>
+    <div class="nav-links">
+        <a href="index.html">Trang Chủ</a>
+        <a href="tournaments.html">🏆 Bảng Vàng</a>
+        <a href="booking.html" class="active">📆 Đặt Sân</a>
+        <a href="booking_history.html">📜 Lịch Sử Đặt</a>
+        <div id="vung-tai-khoan">
+            <a href="login.html" class="btn-login-nav">Đăng Nhập</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>⚽ Đặt Sân Nhanh Chóng</h2>
+    <div id="thong-bao"></div>
+    <form id="form-dat-lich">
+        <div class="form-row-three">
+            <div class="form-group">
+                <label>Mục đích đặt:</label>
+                <select id="loai_dat">
+                    <option value="Khach_Le">⚽ Đá trận lẻ (Giao lưu)</option>
+                    <option value="Giai_Dau">🏆 Đặt làm Giải Đấu</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Chọn Sân Bóng:</label>
+                <select id="san_id" required>
+                    <option value="">-- Chọn sân bóng --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>📅 Chọn Ngày:</label>
+                <input type="date" id="ngay_da" required>
+            </div>
+        </div>
+
+        <div class="slot-section">
+            <label class="section-label">⏰ Chọn Khung Giờ (Bấm chọn ca rời rạc vẫn tự tách đơn):</label>
+            <div class="chu-thich">
+                <div><div class="mau available"></div> Trống</div>
+                <div><div class="mau selected"></div> Đang chọn</div>
+                <div><div class="mau yellow"></div> Đang chờ cọc (CÓ THỂ CƯỚP)</div>
+                <div><div class="mau booked"></div> Đã thanh toán (Khóa)</div>
+            </div>
+            <div class="time-grid" id="time-grid">
+                <p class="placeholder-text">Vui lòng chọn Sân và Ngày để xem lịch trống...</p>
+            </div>
+        </div>
+
+        <div class="box-info">
+            <p><b>Các ca đã chọn:</b> <span id="ca_da_chon_hien_thi">Chưa chọn</span></p>
+            <p class="total-price"><b>💰 Tổng Tiền Tạm Tính:</b> <span id="tong_tien_hien_thi">0 VNĐ</span></p>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-xac-nhan" disabled>Vui lòng chọn giờ đá</button>
+    </form>
+</div>
+
+<!-- Modal QR Cọc -->
+<div id="qr-modal" class="modal">
+    <div class="modal-content">
+        <h3>Thanh Toán Tiền Cọc</h3>
+        <p class="desc">Quét mã QR qua App ngân hàng bất kỳ để xí phần sân này!</p>
+        <img id="qr-img" src="" alt="Mã QR Chuyển Khoản">
+        <p class="amount-text">Tổng tiền: <b id="qr-tien"></b></p>
+        <button id="btn-bao-coc" class="btn-confirm">✅ Tôi đã chuyển khoản xong</button>
+        <button id="btn-dong-qr" class="btn-close">Đóng (Tôi sẽ thanh toán sau)</button>
+    </div>
+</div>
+
+<script src="js/booking.js"></script>
+</body>
+</html>

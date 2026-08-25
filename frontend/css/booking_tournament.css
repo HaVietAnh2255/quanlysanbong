@@ -1,0 +1,178 @@
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background: #f4f6f9; 
+}
+
+/* Navbar Trang Khách */
+.navbar-custom { 
+    background: #1e3d59; 
+    padding: 15px 30px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    color: white; 
+    margin-bottom: 30px; 
+}
+
+.navbar-custom .brand { 
+    font-weight: bold; 
+    font-size: 20px; 
+}
+
+.navbar-custom .nav-links { 
+    display: flex; 
+    gap: 20px; 
+    align-items: center; 
+}
+
+.navbar-custom .nav-links a { 
+    color: white; 
+    text-decoration: none; 
+    padding: 6px 12px; 
+    border-radius: 6px; 
+    transition: all 0.25s ease-in-out; 
+}
+
+.navbar-custom .nav-links a:hover { 
+    background-color: rgba(255, 152, 0, 0.2); 
+    color: #ff9800 !important; 
+    transform: translateY(-2px); 
+}
+
+.navbar-custom .nav-links a.active { 
+    background-color: #ff9800; 
+    color: #000 !important; 
+    font-weight: bold; 
+}
+
+.btn-login-nav { 
+    background: #17b978; 
+    color: white; 
+    padding: 8px 15px; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    font-weight: bold; 
+}
+
+/* Container Form Đăng Ký Giải */
+.container { 
+    max-width: 750px; 
+    margin: 30px auto; 
+    background: white; 
+    padding: 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+}
+
+h2 { 
+    color: #1e3d59; 
+    margin-bottom: 5px; 
+    font-size: 20px; 
+    border-bottom: 2px solid #ff9800; 
+    padding-bottom: 8px; 
+}
+
+.subtitle { 
+    color: #666; 
+    font-size: 14px; 
+    margin-bottom: 25px; 
+    line-height: 1.4; 
+}
+
+.form-group { 
+    margin-bottom: 18px; 
+}
+
+.form-group label { 
+    display: block; 
+    font-weight: bold; 
+    margin-bottom: 6px; 
+    color: #333; 
+    font-size: 14px; 
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea { 
+    width: 100%; 
+    padding: 10px 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 6px; 
+    font-size: 15px; 
+}
+
+.form-row { 
+    display: flex; 
+    gap: 15px; 
+}
+
+.form-row .form-group { 
+    flex: 1; 
+}
+
+.btn-submit { 
+    width: 100%; 
+    background: #ff9800; 
+    color: #000; 
+    padding: 14px; 
+    border: none; 
+    border-radius: 6px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: 0.2s; 
+    margin-top: 10px; 
+}
+
+.btn-submit:hover { 
+    background: #e68a00; 
+    transform: translateY(-2px); 
+}
+
+/* Style cho Dòng Highlight Cảnh Báo 7 Ngày */
+.highlight-note {
+    display: block;
+    color: #e65100;
+    background-color: #fff3e0;
+    border-left: 3px solid #ff9800;
+    padding: 6px 10px;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    line-height: 1.3;
+}
+/* Nút custom chọn ảnh + Badge đếm số ảnh */
+.upload-btn-wrapper { position: relative; display: inline-block; }
+.btn-custom-upload {
+    background: #1e3d59;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-custom-upload:hover { background: #17b978; }
+
+/* Badge màu cam rực rỡ đếm số ảnh (+3, +5) */
+.badge-count {
+    background: #ff9800;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}

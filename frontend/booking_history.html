@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử Đặt Sân Của Bạn</title>
+    <link rel="stylesheet" href="css/booking_history.css">
+</head>
+<body>
+
+<div class="navbar-custom">
+    <div class="brand">⚽ SÂN BÓNG FC</div>
+    <div class="nav-links">
+        <a href="index.html">Trang Chủ</a>
+        <a href="tournaments.html">🏆 Bảng Vàng</a>
+        <a href="booking.html">📆 Đặt Sân</a>
+        <a href="booking_history.html" class="active">📜 Lịch Sử Đặt</a>
+        <div id="vung-tai-khoan">
+            <a href="login.html" class="btn-login-nav">Đăng Nhập</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>📜 LỊCH SỬ ĐẶT SÂN TÀI KHOẢN</h2>
+    <p class="desc-warning">Quy định: Hủy ca trước 24h sẽ bị phạt 50% tiền cọc. Dưới 24h không hỗ trợ hoàn hủy.</p>
+
+    <div class="title">⚽ Trận Lẻ Đã Đặt</div>
+    <!-- 🎯 Khung cuộn cố định Bảng Đơn Lẻ -->
+    <div style="max-height: 400px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <table style="margin: 0; width: 100%;">
+            <thead style="position: sticky; top: 0; background: #1e3d59; color: white; z-index: 2;">
+                <tr>
+                    <th>Mã Đơn</th>
+                    <th>Sân Bóng</th>
+                    <th>Ngày Đá</th>
+                    <th>Khung Giờ</th>
+                    <th>Chi Phí Cọc</th>
+                    <th>Trạng Thái</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody id="lich-su-le">
+                <tr><td colspan="7" class="loading-text">Đang tải dữ liệu...</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Nút Tải thêm đơn lẻ -->
+    <div id="box-nut-khach-le" style="text-align: center; margin-top: 10px; margin-bottom: 25px;"></div>
+
+    <div class="title giai">🏆 Giải Đấu Đã Đăng Ký</div>
+    <!-- 🎯 Khung cuộn cố định Bảng Giải Đấu -->
+    <div style="max-height: 400px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <table style="margin: 0; width: 100%;">
+            <thead style="position: sticky; top: 0; background: #1e3d59; color: white; z-index: 2;">
+                <tr>
+                    <th>Mã Giải</th>
+                    <th>Tên Giải Đấu</th>
+                    <th>Sân Đăng Cai</th>
+                    <th>Thời Gian Diễn Ra</th>
+                    <th>Trạng Thái Duyệt</th>
+                </tr>
+            </thead>
+            <tbody id="lich-su-giai">
+                <tr><td colspan="5" class="loading-text">Đang tải dữ liệu...</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Nút Tải thêm giải đấu -->
+    <div id="box-nut-khach-giai" style="text-align: center; margin-top: 10px; margin-bottom: 25px;"></div>
+</div>
+
+<script src="js/booking_history.js"></script>
+</body>
+</html>
